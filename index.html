@@ -228,6 +228,11 @@
     </style>
 </head>
 <body>
+    <audio id="background-music" loop>
+        <source src="https://raw.githubusercontent.com/MinecraftPolicieCz/OPRAVARPC/103d9052c1c72bc121b028695e28d546d789aed4/%5Bno%20copyright%20music%5D%20'In%20Dreamland%20'%20background%20music%20%5BDSWYAclv2I8%5D.mp3" type="audio/mpeg">
+        Váš prohlížeč nepodporuje přehrávání zvuku.
+    </audio>
+
     <div id="game-container">
         <div id="main-menu">
             <div class="menu-title">OPRAVÁŘ PC 1.0</div>
@@ -351,6 +356,9 @@
         const loadingText = document.getElementById('loading-text');
         const progressBar = document.getElementById('progress-bar');
         
+        // Nová proměnná pro hudební element
+        const backgroundMusic = document.getElementById('background-music');
+
         let taskTimer; // Proměnná pro ukládání časovače úkolů
         let jobTimer; // Proměnná pro ukládání časovače hlavního úkolu
 
@@ -1065,6 +1073,7 @@
             updateButtonPanelText();
             inputField.focus(); 
             startJob(); // Nový řádek: Okamžitě začne nový úkol
+            playMusic();
         }
 
         // Načtení hry
@@ -1080,6 +1089,7 @@
                 startMainJobTimer();
                 updateButtonPanelText();
                 inputField.focus();
+                playMusic();
             } else {
                 alert(getTranslation('noSavedGame'));
             }
@@ -1446,6 +1456,15 @@
                 promptSpan.textContent = 'C:\\>';
                 printToConsole(getTranslation('restartDone'));
             }, 3000);
+        }
+
+        // Funkce pro spuštění hudby
+        function playMusic() {
+            backgroundMusic.volume = 0.1; // Nastavení hlasitosti na 10 %
+            backgroundMusic.play().catch(error => {
+                // Zachycení chyby v případě, že přehrávání selže (např. kvůli zásadám prohlížeče)
+                console.log("Přehrávání hudby selhalo: ", error);
+            });
         }
 
         // Kontrola existence uložené hry
