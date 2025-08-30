@@ -228,6 +228,11 @@
     </style>
 </head>
 <body>
+    <audio id="background-music" loop>
+        <source src="https://raw.githubusercontent.com/MinecraftPolicieCz/OPRAVARPC/103d9052c1c72bc121b028695e28d546d789aed4/%5Bno%20copyright%20music%5D%20'In%20Dreamland%20'%20background%20music%20%5BDSWYAclv2I8%5D.mp3" type="audio/mpeg">
+        Váš prohlížeč nepodporuje přehrávání zvuku.
+    </audio>
+
     <div id="game-container">
         <div id="main-menu">
             <div class="menu-title">OPRAVÁŘ PC 1.0</div>
@@ -351,6 +356,9 @@
         const loadingText = document.getElementById('loading-text');
         const progressBar = document.getElementById('progress-bar');
         
+        // Nová proměnná pro hudební element
+        const backgroundMusic = document.getElementById('background-music');
+
         let taskTimer; // Proměnná pro ukládání časovače úkolů
         let jobTimer; // Proměnná pro ukládání časovače hlavního úkolu
 
@@ -427,126 +435,6 @@
                         tool: "gpu",
                         loadingTime: 10000,
                         successRate: 1.0 
-                    },
-                    "OVERHEATING_ISSUE": {
-                        name: "OVERHEATING_ISSUE",
-                        message: "Komponenty se přehřívají. Vyčistěte chlazení. Zadejte: 'CLEAN_FANS'",
-                        solution: "CLEAN_FANS",
-                        tool: "compressed_air",
-                        loadingTime: 8000,
-                        successRate: 0.95
-                    },
-                    "POWER_SUPPLY_FAILURE": {
-                        name: "POWER_SUPPLY_FAILURE",
-                        message: "Počítač se neustále vypíná. Zdroj nefunguje. Zadejte: 'REPLACE_PSU'",
-                        solution: "REPLACE_PSU",
-                        tool: "psu",
-                        loadingTime: 12000,
-                        successRate: 1.0
-                    },
-                    "HDD_BAD_SECTORS": {
-                        name: "HDD_BAD_SECTORS",
-                        message: "Pevný disk má poškozené sektory. Spusťte kontrolu. Zadejte: 'CHECK_DISK'",
-                        solution: "CHECK_DISK",
-                        tool: "hdd_tool",
-                        loadingTime: 15000,
-                        successRate: 0.75
-                    },
-                    "BROKEN_MOTHERBOARD": {
-                        name: "BROKEN_MOTHERBOARD",
-                        message: "Základní deska nefunguje. Musíte ji vyměnit. Zadejte: 'REPLACE_MOBO'",
-                        solution: "REPLACE_MOBO",
-                        tool: "motherboard",
-                        loadingTime: 20000,
-                        successRate: 1.0
-                    },
-                    "SOUND_CARD_ISSUE": {
-                        name: "SOUND_CARD_ISSUE",
-                        message: "Žádný zvuk. Zkuste přeinstalovat ovladače zvuku. Zadejte: 'REINSTALL_SOUND_DRIVER'",
-                        solution: "REINSTALL_SOUND_DRIVER",
-                        tool: "driver_software",
-                        loadingTime: 7000,
-                        successRate: 0.9
-                    },
-                    "BROKEN_KEYBOARD": {
-                        name: "BROKEN_KEYBOARD",
-                        message: "Klávesnice nefunguje. Nahraďte ji novou. Zadejte: 'REPLACE_KEYBOARD'",
-                        solution: "REPLACE_KEYBOARD",
-                        tool: "keyboard",
-                        loadingTime: 5000,
-                        successRate: 1.0
-                    },
-                    "DEAD_PIXELS": {
-                        name: "DEAD_PIXELS",
-                        message: "Na monitoru jsou mrtvé pixely. Je třeba ho vyměnit. Zadejte: 'REPLACE_MONITOR'",
-                        solution: "REPLACE_MONITOR",
-                        tool: "monitor",
-                        loadingTime: 10000,
-                        successRate: 1.0
-                    },
-                    "CORRUPT_OS": {
-                        name: "CORRUPT_OS",
-                        message: "Operační systém je poškozený. Je nutná přeinstalace. Zadejte: 'REINSTALL_OS'",
-                        solution: "REINSTALL_OS",
-                        tool: "os_installer",
-                        loadingTime: 30000,
-                        successRate: 0.8
-                    },
-                    "MISSING_DRIVERS": {
-                        name: "MISSING_DRIVERS",
-                        message: "Chybí ovladače hardwaru. Spusťte automatickou instalaci. Zadejte: 'INSTALL_DRIVERS'",
-                        solution: "INSTALL_DRIVERS",
-                        tool: "driver_software",
-                        loadingTime: 15000,
-                        successRate: 0.9
-                    },
-                    "BROKEN_WEBCAM": {
-                        name: "BROKEN_WEBCAM",
-                        message: "Webkamera se nezapne. Vyměňte ji. Zadejte: 'REPLACE_WEBCAM'",
-                        solution: "REPLACE_WEBCAM",
-                        tool: "webcam",
-                        loadingTime: 6000,
-                        successRate: 1.0
-                    },
-                    "SLOW_BOOT": {
-                        name: "SLOW_BOOT",
-                        message: "Počítač se spouští extrémně pomalu. Proveďte defragmentaci disku. Zadejte: 'DEFRAG_DISK'",
-                        solution: "DEFRAG_DISK",
-                        tool: "hdd_tool",
-                        loadingTime: 25000,
-                        successRate: 0.85
-                    },
-                    "BLUE_SCREEN_ERROR": {
-                        name: "BLUE_SCREEN_ERROR",
-                        message: "Systém neustále padá. Zkontrolujte systémové soubory. Zadejte: 'SFC_SCAN'",
-                        solution: "SFC_SCAN",
-                        tool: "os_installer",
-                        loadingTime: 18000,
-                        successRate: 0.9
-                    },
-                    "FROZEN_SYSTEM": {
-                        name: "FROZEN_SYSTEM",
-                        message: "Systém zamrzá. Zkontrolujte RAM moduly. Zadejte: 'CHECK_RAM'",
-                        solution: "CHECK_RAM",
-                        tool: "ram_tester",
-                        loadingTime: 9000,
-                        successRate: 0.9
-                    },
-                    "LOUD_FAN": {
-                        name: "LOUD_FAN",
-                        message: "Ventilátor je extrémně hlučný. Vyčistěte ho nebo vyměňte. Zadejte: 'REPLACE_FAN'",
-                        solution: "REPLACE_FAN",
-                        tool: "fan",
-                        loadingTime: 7000,
-                        successRate: 1.0
-                    },
-                    "BUILD_PC": {
-                        name: "BUILD_PC",
-                        message: "Sestavte nový počítač a spusťte benchmark. Zadejte: 'ASSEMBLE_PC'",
-                        solution: "ASSEMBLE_PC",
-                        tool: "pc_parts",
-                        loadingTime: 30000,
-                        successRate: 0.95
                     }
                 },
                 sideTasks: {
@@ -560,83 +448,11 @@
                     },
                     "CLEAN_UP": {
                         name: "CLEAN_UP",
-                        message: "Vyčistěte dočasné soubory, abyste urychlili systém. Zadejte: 'CLEAN_FILES'",
-                        solution: "CLEAN_FILES",
+                        message: "Vyčistěte dočasné soubory, abyste urychlili systém. Zadejte: 'SCAN_VIRUS'",
+                        solution: "SCAN_VIRUS",
                         pay: 10,
                         successRate: 0.85,
                         loadingTime: 10000 
-                    },
-                    "SOFTWARE_UPDATE": {
-                        name: "SOFTWARE_UPDATE",
-                        message: "Aktualizujte veškerý software na nejnovější verzi. Zadejte: 'UPDATE_SOFTWARE'",
-                        solution: "UPDATE_SOFTWARE",
-                        pay: 15,
-                        successRate: 0.9,
-                        loadingTime: 12000
-                    },
-                    "REPLACE_BATTERY": {
-                        name: "REPLACE_BATTERY",
-                        message: "Vyměňte baterii v notebooku. Zadejte: 'REPLACE_BATTERY'",
-                        solution: "REPLACE_BATTERY",
-                        pay: 20,
-                        successRate: 1.0,
-                        loadingTime: 8000
-                    },
-                    "INSTALL_PRINTER": {
-                        name: "INSTALL_PRINTER",
-                        message: "Nainstalujte tiskárnu a její ovladače. Zadejte: 'INSTALL_PRINTER'",
-                        solution: "INSTALL_PRINTER",
-                        pay: 25,
-                        successRate: 1.0,
-                        loadingTime: 15000
-                    },
-                    "CHANGE_THERMAL_PASTE": {
-                        name: "CHANGE_THERMAL_PASTE",
-                        message: "Vyměňte teplovodivou pastu na procesoru. Zadejte: 'CHANGE_PASTE'",
-                        solution: "CHANGE_PASTE",
-                        pay: 30,
-                        successRate: 0.9,
-                        loadingTime: 10000
-                    },
-                    "SETUP_WIFI": {
-                        name: "SETUP_WIFI",
-                        message: "Nastavte bezdrátovou síť pro zákazníka. Zadejte: 'SETUP_WIFI'",
-                        solution: "SETUP_WIFI",
-                        pay: 20,
-                        successRate: 1.0,
-                        loadingTime: 10000
-                    },
-                    "UPGRADE_RAM": {
-                        name: "UPGRADE_RAM",
-                        message: "Přidejte do počítače další modul RAM. Zadejte: 'ADD_RAM'",
-                        solution: "ADD_RAM",
-                        pay: 35,
-                        successRate: 1.0,
-                        loadingTime: 12000
-                    },
-                    "REPLACE_GPU": {
-                        name: "REPLACE_GPU",
-                        message: "Vyměňte grafickou kartu za novou. Zadejte: 'REPLACE_GPU'",
-                        solution: "REPLACE_GPU",
-                        pay: 40,
-                        successRate: 1.0,
-                        loadingTime: 15000
-                    },
-                    "RESET_PASSWORD": {
-                        name: "RESET_PASSWORD",
-                        message: "Zákazník zapomněl heslo. Resetujte ho. Zadejte: 'RESET_PASSWORD'",
-                        solution: "RESET_PASSWORD",
-                        pay: 10,
-                        successRate: 1.0,
-                        loadingTime: 5000
-                    },
-                    "CLEAN_DUST": {
-                        name: "CLEAN_DUST",
-                        message: "Vyčistěte vnitřek počítače od prachu. Zadejte: 'CLEAN_DUST'",
-                        solution: "CLEAN_DUST",
-                        pay: 15,
-                        successRate: 1.0,
-                        loadingTime: 8000
                     }
                 },
                 shopItems: {
@@ -645,18 +461,7 @@
                     'network_adapter': 'síťový adaptér',
                     'cpu': 'procesor',
                     'gpu': 'grafická karta',
-                    'ram': 'RAM',
-                    'compressed_air': 'stlačený vzduch',
-                    'psu': 'zdroj',
-                    'hdd_tool': 'nástroj na disk',
-                    'motherboard': 'základní deska',
-                    'driver_software': 'software ovladačů',
-                    'keyboard': 'klávesnice',
-                    'monitor': 'monitor',
-                    'os_installer': 'instalační disk OS',
-                    'webcam': 'webkamera',
-                    'fan': 'ventilátor',
-                    'pc_parts': 'PC díly'
+                    'ram': 'RAM'
                 },
                 repairMode: "OPRAVNÝ REŽIM: Počítač nelze ovládat klávesnicí. Použijte myš k nákupu, prodeji nebo odchodu z obchodu.",
                 taskInfo: "{name} (Odměna: {pay}$)",
@@ -746,126 +551,6 @@
                         tool: "gpu",
                         loadingTime: 10000,
                         successRate: 1.0
-                    },
-                    "OVERHEATING_ISSUE": {
-                        name: "OVERHEATING_ISSUE",
-                        message: "Components are overheating. Clean the cooling system. Enter: 'CLEAN_FANS'",
-                        solution: "CLEAN_FANS",
-                        tool: "compressed_air",
-                        loadingTime: 8000,
-                        successRate: 0.95
-                    },
-                    "POWER_SUPPLY_FAILURE": {
-                        name: "POWER_SUPPLY_FAILURE",
-                        message: "The computer keeps shutting down. Power supply is failing. Enter: 'REPLACE_PSU'",
-                        solution: "REPLACE_PSU",
-                        tool: "psu",
-                        loadingTime: 12000,
-                        successRate: 1.0
-                    },
-                    "HDD_BAD_SECTORS": {
-                        name: "HDD_BAD_SECTORS",
-                        message: "Hard drive has bad sectors. Run a check. Enter: 'CHECK_DISK'",
-                        solution: "CHECK_DISK",
-                        tool: "hdd_tool",
-                        loadingTime: 15000,
-                        successRate: 0.75
-                    },
-                    "BROKEN_MOTHERBOARD": {
-                        name: "BROKEN_MOTHERBOARD",
-                        message: "The motherboard is not working. You must replace it. Enter: 'REPLACE_MOBO'",
-                        solution: "REPLACE_MOBO",
-                        tool: "motherboard",
-                        loadingTime: 20000,
-                        successRate: 1.0
-                    },
-                    "SOUND_CARD_ISSUE": {
-                        name: "SOUND_CARD_ISSUE",
-                        message: "No sound. Try reinstalling the sound drivers. Enter: 'REINSTALL_SOUND_DRIVER'",
-                        solution: "REINSTALL_SOUND_DRIVER",
-                        tool: "driver_software",
-                        loadingTime: 7000,
-                        successRate: 0.9
-                    },
-                    "BROKEN_KEYBOARD": {
-                        name: "BROKEN_KEYBOARD",
-                        message: "Keyboard is not working. Replace it with a new one. Enter: 'REPLACE_KEYBOARD'",
-                        solution: "REPLACE_KEYBOARD",
-                        tool: "keyboard",
-                        loadingTime: 5000,
-                        successRate: 1.0
-                    },
-                    "DEAD_PIXELS": {
-                        name: "DEAD_PIXELS",
-                        message: "There are dead pixels on the monitor. It needs to be replaced. Enter: 'REPLACE_MONITOR'",
-                        solution: "REPLACE_MONITOR",
-                        tool: "monitor",
-                        loadingTime: 10000,
-                        successRate: 1.0
-                    },
-                    "CORRUPT_OS": {
-                        name: "CORRUPT_OS",
-                        message: "The operating system is corrupt. Reinstallation is required. Enter: 'REINSTALL_OS'",
-                        solution: "REINSTALL_OS",
-                        tool: "os_installer",
-                        loadingTime: 30000,
-                        successRate: 0.8
-                    },
-                    "MISSING_DRIVERS": {
-                        name: "MISSING_DRIVERS",
-                        message: "Missing hardware drivers. Run an automatic installation. Enter: 'INSTALL_DRIVERS'",
-                        solution: "INSTALL_DRIVERS",
-                        tool: "driver_software",
-                        loadingTime: 15000,
-                        successRate: 0.9
-                    },
-                    "BROKEN_WEBCAM": {
-                        name: "BROKEN_WEBCAM",
-                        message: "Webcam won't turn on. Replace it. Enter: 'REPLACE_WEBCAM'",
-                        solution: "REPLACE_WEBCAM",
-                        tool: "webcam",
-                        loadingTime: 6000,
-                        successRate: 1.0
-                    },
-                    "SLOW_BOOT": {
-                        name: "SLOW_BOOT",
-                        message: "Computer is booting extremely slowly. Defragment the disk. Enter: 'DEFRAG_DISK'",
-                        solution: "DEFRAG_DISK",
-                        tool: "hdd_tool",
-                        loadingTime: 25000,
-                        successRate: 0.85
-                    },
-                    "BLUE_SCREEN_ERROR": {
-                        name: "BLUE_SCREEN_ERROR",
-                        message: "System keeps crashing. Check system files. Enter: 'SFC_SCAN'",
-                        solution: "SFC_SCAN",
-                        tool: "os_installer",
-                        loadingTime: 18000,
-                        successRate: 0.9
-                    },
-                    "FROZEN_SYSTEM": {
-                        name: "FROZEN_SYSTEM",
-                        message: "System is freezing. Check RAM modules. Enter: 'CHECK_RAM'",
-                        solution: "CHECK_RAM",
-                        tool: "ram_tester",
-                        loadingTime: 9000,
-                        successRate: 0.9
-                    },
-                    "LOUD_FAN": {
-                        name: "LOUD_FAN",
-                        message: "Fan is extremely loud. Clean or replace it. Enter: 'REPLACE_FAN'",
-                        solution: "REPLACE_FAN",
-                        tool: "fan",
-                        loadingTime: 7000,
-                        successRate: 1.0
-                    },
-                    "BUILD_PC": {
-                        name: "BUILD_PC",
-                        message: "Assemble a new computer and run a benchmark. Enter: 'ASSEMBLE_PC'",
-                        solution: "ASSEMBLE_PC",
-                        tool: "pc_parts",
-                        loadingTime: 30000,
-                        successRate: 0.95
                     }
                 },
                 sideTasks: {
@@ -879,83 +564,11 @@
                     },
                     "CLEAN_UP": {
                         name: "CLEAN_UP",
-                        message: "Clean up temporary files to speed up the system. Enter: 'CLEAN_FILES'",
-                        solution: "CLEAN_FILES",
+                        message: "Clean up temporary files to speed up the system. Enter: 'SCAN_VIRUS'",
+                        solution: "SCAN_VIRUS",
                         pay: 10,
                         successRate: 0.85,
-                        loadingTime: 10000
-                    },
-                    "SOFTWARE_UPDATE": {
-                        name: "SOFTWARE_UPDATE",
-                        message: "Update all software to the latest version. Enter: 'UPDATE_SOFTWARE'",
-                        solution: "UPDATE_SOFTWARE",
-                        pay: 15,
-                        successRate: 0.9,
-                        loadingTime: 12000
-                    },
-                    "REPLACE_BATTERY": {
-                        name: "REPLACE_BATTERY",
-                        message: "Replace the laptop battery. Enter: 'REPLACE_BATTERY'",
-                        solution: "REPLACE_BATTERY",
-                        pay: 20,
-                        successRate: 1.0,
-                        loadingTime: 8000
-                    },
-                    "INSTALL_PRINTER": {
-                        name: "INSTALL_PRINTER",
-                        message: "Install a printer and its drivers. Enter: 'INSTALL_PRINTER'",
-                        solution: "INSTALL_PRINTER",
-                        pay: 25,
-                        successRate: 1.0,
-                        loadingTime: 15000
-                    },
-                    "CHANGE_THERMAL_PASTE": {
-                        name: "CHANGE_THERMAL_PASTE",
-                        message: "Change the thermal paste on the CPU. Enter: 'CHANGE_PASTE'",
-                        solution: "CHANGE_PASTE",
-                        pay: 30,
-                        successRate: 0.9,
-                        loadingTime: 10000
-                    },
-                    "SETUP_WIFI": {
-                        name: "SETUP_WIFI",
-                        message: "Set up a wireless network for a customer. Enter: 'SETUP_WIFI'",
-                        solution: "SETUP_WIFI",
-                        pay: 20,
-                        successRate: 1.0,
-                        loadingTime: 10000
-                    },
-                    "UPGRADE_RAM": {
-                        name: "UPGRADE_RAM",
-                        message: "Add an extra RAM module to the computer. Enter: 'ADD_RAM'",
-                        solution: "ADD_RAM",
-                        pay: 35,
-                        successRate: 1.0,
-                        loadingTime: 12000
-                    },
-                    "REPLACE_GPU": {
-                        name: "REPLACE_GPU",
-                        message: "Replace the graphics card with a new one. Enter: 'REPLACE_GPU'",
-                        solution: "REPLACE_GPU",
-                        pay: 40,
-                        successRate: 1.0,
-                        loadingTime: 15000
-                    },
-                    "RESET_PASSWORD": {
-                        name: "RESET_PASSWORD",
-                        message: "Customer forgot their password. Reset it. Enter: 'RESET_PASSWORD'",
-                        solution: "RESET_PASSWORD",
-                        pay: 10,
-                        successRate: 1.0,
-                        loadingTime: 5000
-                    },
-                    "CLEAN_DUST": {
-                        name: "CLEAN_DUST",
-                        message: "Clean the inside of the computer from dust. Enter: 'CLEAN_DUST'",
-                        solution: "CLEAN_DUST",
-                        pay: 15,
-                        successRate: 1.0,
-                        loadingTime: 8000
+                        loadingTime: 10000 
                     }
                 },
                 shopItems: {
@@ -964,18 +577,7 @@
                     'network_adapter': 'network adapter',
                     'cpu': 'CPU',
                     'gpu': 'GPU',
-                    'ram': 'RAM',
-                    'compressed_air': 'compressed air',
-                    'psu': 'PSU',
-                    'hdd_tool': 'HDD tool',
-                    'motherboard': 'motherboard',
-                    'driver_software': 'driver software',
-                    'keyboard': 'keyboard',
-                    'monitor': 'monitor',
-                    'os_installer': 'OS installer',
-                    'webcam': 'webcam',
-                    'fan': 'fan',
-                    'pc_parts': 'PC parts'
+                    'ram': 'RAM'
                 },
                 repairMode: "REPAIR MODE: The computer cannot be controlled by keyboard. Use the mouse to buy, sell, or exit the shop.",
                 taskInfo: "{name} (Pay: {pay}$)",
@@ -1065,132 +667,12 @@
                         tool: "gpu",
                         loadingTime: 10000,
                         successRate: 1.0
-                    },
-                    "OVERHEATING_ISSUE": {
-                        name: "OVERHEATING_ISSUE",
-                        message: "Komponenty się przegrzewają. Wyczyść układ chłodzenia. Wpisz: 'CLEAN_FANS'",
-                        solution: "CLEAN_FANS",
-                        tool: "compressed_air",
-                        loadingTime: 8000,
-                        successRate: 0.95
-                    },
-                    "POWER_SUPPLY_FAILURE": {
-                        name: "POWER_SUPPLY_FAILURE",
-                        message: "Komputer ciągle się wyłącza. Zasilacz nie działa. Wpisz: 'REPLACE_PSU'",
-                        solution: "REPLACE_PSU",
-                        tool: "psu",
-                        loadingTime: 12000,
-                        successRate: 1.0
-                    },
-                    "HDD_BAD_SECTORS": {
-                        name: "HDD_BAD_SECTORS",
-                        message: "Dysk twardy ma uszkodzone sektory. Uruchom sprawdzanie. Wpisz: 'CHECK_DISK'",
-                        solution: "CHECK_DISK",
-                        tool: "hdd_tool",
-                        loadingTime: 15000,
-                        successRate: 0.75
-                    },
-                    "BROKEN_MOTHERBOARD": {
-                        name: "BROKEN_MOTHERBOARD",
-                        message: "Płyta główna nie działa. Musisz ją wymienić. Wpisz: 'REPLACE_MOBO'",
-                        solution: "REPLACE_MOBO",
-                        tool: "motherboard",
-                        loadingTime: 20000,
-                        successRate: 1.0
-                    },
-                    "SOUND_CARD_ISSUE": {
-                        name: "SOUND_CARD_ISSUE",
-                        message: "Brak dźwięku. Spróbuj ponownie zainstalować sterowniki dźwięku. Wpisz: 'REINSTALL_SOUND_DRIVER'",
-                        solution: "REINSTALL_SOUND_DRIVER",
-                        tool: "driver_software",
-                        loadingTime: 7000,
-                        successRate: 0.9
-                    },
-                    "BROKEN_KEYBOARD": {
-                        name: "BROKEN_KEYBOARD",
-                        message: "Klawiatura nie działa. Wymień ją na nową. Wpisz: 'REPLACE_KEYBOARD'",
-                        solution: "REPLACE_KEYBOARD",
-                        tool: "keyboard",
-                        loadingTime: 5000,
-                        successRate: 1.0
-                    },
-                    "DEAD_PIXELS": {
-                        name: "DEAD_PIXELS",
-                        message: "Na monitorze są martwe piksele. Należy go wymienić. Wpisz: 'REPLACE_MONITOR'",
-                        solution: "REPLACE_MONITOR",
-                        tool: "monitor",
-                        loadingTime: 10000,
-                        successRate: 1.0
-                    },
-                    "CORRUPT_OS": {
-                        name: "CORRUPT_OS",
-                        message: "System operacyjny jest uszkodzony. Wymagana jest ponowna instalacja. Wpisz: 'REINSTALL_OS'",
-                        solution: "REINSTALL_OS",
-                        tool: "os_installer",
-                        loadingTime: 30000,
-                        successRate: 0.8
-                    },
-                    "MISSING_DRIVERS": {
-                        name: "MISSING_DRIVERS",
-                        message: "Brakuje sterowników sprzętu. Uruchom automatyczną instalację. Wpisz: 'INSTALL_DRIVERS'",
-                        solution: "INSTALL_DRIVERS",
-                        tool: "driver_software",
-                        loadingTime: 15000,
-                        successRate: 0.9
-                    },
-                    "BROKEN_WEBCAM": {
-                        name: "BROKEN_WEBCAM",
-                        message: "Kamera internetowa się nie włącza. Wymień ją. Wpisz: 'REPLACE_WEBCAM'",
-                        solution: "REPLACE_WEBCAM",
-                        tool: "webcam",
-                        loadingTime: 6000,
-                        successRate: 1.0
-                    },
-                    "SLOW_BOOT": {
-                        name: "SLOW_BOOT",
-                        message: "Komputer uruchamia się bardzo wolno. Przeprowadź defragmentację dysku. Wpisz: 'DEFRAG_DISK'",
-                        solution: "DEFRAG_DISK",
-                        tool: "hdd_tool",
-                        loadingTime: 25000,
-                        successRate: 0.85
-                    },
-                    "BLUE_SCREEN_ERROR": {
-                        name: "BLUE_SCREEN_ERROR",
-                        message: "System ciągle się zawiesza. Sprawdź pliki systemowe. Wpisz: 'SFC_SCAN'",
-                        solution: "SFC_SCAN",
-                        tool: "os_installer",
-                        loadingTime: 18000,
-                        successRate: 0.9
-                    },
-                    "FROZEN_SYSTEM": {
-                        name: "FROZEN_SYSTEM",
-                        message: "System się zawiesza. Sprawdź moduły RAM. Wpisz: 'CHECK_RAM'",
-                        solution: "CHECK_RAM",
-                        tool: "ram_tester",
-                        loadingTime: 9000,
-                        successRate: 0.9
-                    },
-                    "LOUD_FAN": {
-                        name: "LOUD_FAN",
-                        message: "Wentylator jest bardzo głośny. Wyczyść go lub wymień. Wpisz: 'REPLACE_FAN'",
-                        solution: "REPLACE_FAN",
-                        tool: "fan",
-                        loadingTime: 7000,
-                        successRate: 1.0
-                    },
-                    "BUILD_PC": {
-                        name: "BUILD_PC",
-                        message: "Zmontuj nowy komputer i uruchom benchmark. Wpisz: 'ASSEMBLE_PC'",
-                        solution: "ASSEMBLE_PC",
-                        tool: "pc_parts",
-                        loadingTime: 30000,
-                        successRate: 0.95
                     }
                 },
                 sideTasks: {
                     "DATA_RECOVERY": {
                         name: "DATA_RECOVERY",
-                        message: "Klient usunął ważne pliki. Odzyskaj je. Wpisz: 'RECOVER_FILES'",
+                        message: "Klient usunął ważne pliky. Odzyskaj je. Wpisz: 'RECOVER_FILES'",
                         solution: "RECOVER_FILES",
                         pay: 15,
                         loadingTime: 10000,
@@ -1198,83 +680,11 @@
                     },
                     "CLEAN_UP": {
                         name: "CLEAN_UP",
-                        message: "Wyczyść tymczasowe pliki, aby przyspieszyć system. Wpisz: 'CLEAN_FILES'",
-                        solution: "CLEAN_FILES",
+                        message: "Wyczyść tymczasowe pliki, aby przyspieszyć system. Wpisz: 'SCAN_VIRUS'",
+                        solution: "SCAN_VIRUS",
                         pay: 10,
                         successRate: 0.85,
-                        loadingTime: 10000
-                    },
-                    "SOFTWARE_UPDATE": {
-                        name: "SOFTWARE_UPDATE",
-                        message: "Zaktualizuj całe oprogramowanie do najnowszej wersji. Wpisz: 'UPDATE_SOFTWARE'",
-                        solution: "UPDATE_SOFTWARE",
-                        pay: 15,
-                        successRate: 0.9,
-                        loadingTime: 12000
-                    },
-                    "REPLACE_BATTERY": {
-                        name: "REPLACE_BATTERY",
-                        message: "Wymień baterię w laptopie. Wpisz: 'REPLACE_BATTERY'",
-                        solution: "REPLACE_BATTERY",
-                        pay: 20,
-                        successRate: 1.0,
-                        loadingTime: 8000
-                    },
-                    "INSTALL_PRINTER": {
-                        name: "INSTALL_PRINTER",
-                        message: "Zainstaluj drukarkę i jej sterowniki. Wpisz: 'INSTALL_PRINTER'",
-                        solution: "INSTALL_PRINTER",
-                        pay: 25,
-                        successRate: 1.0,
-                        loadingTime: 15000
-                    },
-                    "CHANGE_THERMAL_PASTE": {
-                        name: "CHANGE_THERMAL_PASTE",
-                        message: "Wymień pastę termoprzewodzącą na procesorze. Wpisz: 'CHANGE_PASTE'",
-                        solution: "CHANGE_PASTE",
-                        pay: 30,
-                        successRate: 0.9,
-                        loadingTime: 10000
-                    },
-                    "SETUP_WIFI": {
-                        name: "SETUP_WIFI",
-                        message: "Skonfiguruj sieć bezprzewodową dla klienta. Wpisz: 'SETUP_WIFI'",
-                        solution: "SETUP_WIFI",
-                        pay: 20,
-                        successRate: 1.0,
-                        loadingTime: 10000
-                    },
-                    "UPGRADE_RAM": {
-                        name: "UPGRADE_RAM",
-                        message: "Dodaj dodatkowy moduł RAM do komputera. Wpisz: 'ADD_RAM'",
-                        solution: "ADD_RAM",
-                        pay: 35,
-                        successRate: 1.0,
-                        loadingTime: 12000
-                    },
-                    "REPLACE_GPU": {
-                        name: "REPLACE_GPU",
-                        message: "Wymień kartę graficzną na nową. Wpisz: 'REPLACE_GPU'",
-                        solution: "REPLACE_GPU",
-                        pay: 40,
-                        successRate: 1.0,
-                        loadingTime: 15000
-                    },
-                    "RESET_PASSWORD": {
-                        name: "RESET_PASSWORD",
-                        message: "Klient zapomniał hasła. Zresetuj je. Wpisz: 'RESET_PASSWORD'",
-                        solution: "RESET_PASSWORD",
-                        pay: 10,
-                        successRate: 1.0,
-                        loadingTime: 5000
-                    },
-                    "CLEAN_DUST": {
-                        name: "CLEAN_DUST",
-                        message: "Wyczyść wnętrze komputera z kurzu. Wpisz: 'CLEAN_DUST'",
-                        solution: "CLEAN_DUST",
-                        pay: 15,
-                        successRate: 1.0,
-                        loadingTime: 8000
+                        loadingTime: 10000 
                     }
                 },
                 shopItems: {
@@ -1283,18 +693,7 @@
                     'network_adapter': 'karta sieciowa',
                     'cpu': 'procesor',
                     'gpu': 'karta graficzna',
-                    'ram': 'RAM',
-                    'compressed_air': 'sprężone powietrze',
-                    'psu': 'zasilacz',
-                    'hdd_tool': 'narzędzie do dysku twardego',
-                    'motherboard': 'płyta główna',
-                    'driver_software': 'oprogramowanie sterowników',
-                    'keyboard': 'klawiatura',
-                    'monitor': 'monitor',
-                    'os_installer': 'instalator OS',
-                    'webcam': 'kamera internetowa',
-                    'fan': 'wentylator',
-                    'pc_parts': 'części PC'
+                    'ram': 'RAM'
                 },
                 repairMode: "TRYB NAPRAWY: Komputer nie może być sterowany za pomocą klawiatury. Użyj myszy, aby kupić, sprzedać lub opuścić sklep.",
                 taskInfo: "{name} (Płatność: {pay}$)",
@@ -1384,126 +783,6 @@
                         tool: "gpu",
                         loadingTime: 10000,
                         successRate: 1.0
-                    },
-                    "OVERHEATING_ISSUE": {
-                        name: "OVERHEATING_ISSUE",
-                        message: "Komponenten überhitzen. Reinigen Sie das Kühlsystem. Geben Sie ein: 'CLEAN_FANS'",
-                        solution: "CLEAN_FANS",
-                        tool: "compressed_air",
-                        loadingTime: 8000,
-                        successRate: 0.95
-                    },
-                    "POWER_SUPPLY_FAILURE": {
-                        name: "POWER_SUPPLY_FAILURE",
-                        message: "Der Computer schaltet sich ständig aus. Das Netzteil ist defekt. Geben Sie ein: 'REPLACE_PSU'",
-                        solution: "REPLACE_PSU",
-                        tool: "psu",
-                        loadingTime: 12000,
-                        successRate: 1.0
-                    },
-                    "HDD_BAD_SECTORS": {
-                        name: "HDD_BAD_SECTORS",
-                        message: "Die Festplatte hat fehlerhafte Sektoren. Führen Sie eine Überprüfung durch. Geben Sie ein: 'CHECK_DISK'",
-                        solution: "CHECK_DISK",
-                        tool: "hdd_tool",
-                        loadingTime: 15000,
-                        successRate: 0.75
-                    },
-                    "BROKEN_MOTHERBOARD": {
-                        name: "BROKEN_MOTHERBOARD",
-                        message: "Das Mainboard funktioniert nicht. Sie müssen es ersetzen. Geben Sie ein: 'REPLACE_MOBO'",
-                        solution: "REPLACE_MOBO",
-                        tool: "motherboard",
-                        loadingTime: 20000,
-                        successRate: 1.0
-                    },
-                    "SOUND_CARD_ISSUE": {
-                        name: "SOUND_CARD_ISSUE",
-                        message: "Kein Ton. Versuchen Sie, die Audiotreiber neu zu installieren. Geben Sie ein: 'REINSTALL_SOUND_DRIVER'",
-                        solution: "REINSTALL_SOUND_DRIVER",
-                        tool: "driver_software",
-                        loadingTime: 7000,
-                        successRate: 0.9
-                    },
-                    "BROKEN_KEYBOARD": {
-                        name: "BROKEN_KEYBOARD",
-                        message: "Die Tastatur funktioniert nicht. Ersetzen Sie sie durch eine neue. Geben Sie ein: 'REPLACE_KEYBOARD'",
-                        solution: "REPLACE_KEYBOARD",
-                        tool: "keyboard",
-                        loadingTime: 5000,
-                        successRate: 1.0
-                    },
-                    "DEAD_PIXELS": {
-                        name: "DEAD_PIXELS",
-                        message: "Der Monitor hat tote Pixel. Er muss ersetzt werden. Geben Sie ein: 'REPLACE_MONITOR'",
-                        solution: "REPLACE_MONITOR",
-                        tool: "monitor",
-                        loadingTime: 10000,
-                        successRate: 1.0
-                    },
-                    "CORRUPT_OS": {
-                        name: "CORRUPT_OS",
-                        message: "Das Betriebssystem ist beschädigt. Eine Neuinstallation ist erforderlich. Geben Sie ein: 'REINSTALL_OS'",
-                        solution: "REINSTALL_OS",
-                        tool: "os_installer",
-                        loadingTime: 30000,
-                        successRate: 0.8
-                    },
-                    "MISSING_DRIVERS": {
-                        name: "MISSING_DRIVERS",
-                        message: "Hardwaretreiber fehlen. Führen Sie eine automatische Installation durch. Geben Sie ein: 'INSTALL_DRIVERS'",
-                        solution: "INSTALL_DRIVERS",
-                        tool: "driver_software",
-                        loadingTime: 15000,
-                        successRate: 0.9
-                    },
-                    "BROKEN_WEBCAM": {
-                        name: "BROKEN_WEBCAM",
-                        message: "Die Webcam lässt sich nicht einschalten. Ersetzen Sie sie. Geben Sie ein: 'REPLACE_WEBCAM'",
-                        solution: "REPLACE_WEBCAM",
-                        tool: "webcam",
-                        loadingTime: 6000,
-                        successRate: 1.0
-                    },
-                    "SLOW_BOOT": {
-                        name: "SLOW_BOOT",
-                        message: "Der Computer startet extrem langsam. Defragmentieren Sie die Festplatte. Geben Sie ein: 'DEFRAG_DISK'",
-                        solution: "DEFRAG_DISK",
-                        tool: "hdd_tool",
-                        loadingTime: 25000,
-                        successRate: 0.85
-                    },
-                    "BLUE_SCREEN_ERROR": {
-                        name: "BLUE_SCREEN_ERROR",
-                        message: "Das System stürzt ständig ab. Überprüfen Sie die Systemdateien. Geben Sie ein: 'SFC_SCAN'",
-                        solution: "SFC_SCAN",
-                        tool: "os_installer",
-                        loadingTime: 18000,
-                        successRate: 0.9
-                    },
-                    "FROZEN_SYSTEM": {
-                        name: "FROZEN_SYSTEM",
-                        message: "Das System friert ein. Überprüfen Sie die RAM-Module. Geben Sie ein: 'CHECK_RAM'",
-                        solution: "CHECK_RAM",
-                        tool: "ram_tester",
-                        loadingTime: 9000,
-                        successRate: 0.9
-                    },
-                    "LOUD_FAN": {
-                        name: "LOUD_FAN",
-                        message: "Der Lüfter ist extrem laut. Reinigen oder ersetzen Sie ihn. Geben Sie ein: 'REPLACE_FAN'",
-                        solution: "REPLACE_FAN",
-                        tool: "fan",
-                        loadingTime: 7000,
-                        successRate: 1.0
-                    },
-                    "BUILD_PC": {
-                        name: "BUILD_PC",
-                        message: "Montieren Sie einen neuen Computer und führen Sie einen Benchmark durch. Geben Sie ein: 'ASSEMBLE_PC'",
-                        solution: "ASSEMBLE_PC",
-                        tool: "pc_parts",
-                        loadingTime: 30000,
-                        successRate: 0.95
                     }
                 },
                 sideTasks: {
@@ -1517,83 +796,11 @@
                     },
                     "CLEAN_UP": {
                         name: "CLEAN_UP",
-                        message: "Bereinigen Sie temporäre Dateien, um das System zu beschleunigen. Geben Sie ein: 'CLEAN_FILES'",
-                        solution: "CLEAN_FILES",
+                        message: "Bereinigen Sie temporäre Dateien, um das System zu beschleunigen. Geben Sie ein: 'SCAN_VIRUS'",
+                        solution: "SCAN_VIRUS",
                         pay: 10,
                         successRate: 0.85,
-                        loadingTime: 10000
-                    },
-                    "SOFTWARE_UPDATE": {
-                        name: "SOFTWARE_UPDATE",
-                        message: "Aktualisieren Sie die gesamte Software auf die neueste Version. Geben Sie ein: 'UPDATE_SOFTWARE'",
-                        solution: "UPDATE_SOFTWARE",
-                        pay: 15,
-                        successRate: 0.9,
-                        loadingTime: 12000
-                    },
-                    "REPLACE_BATTERY": {
-                        name: "REPLACE_BATTERY",
-                        message: "Ersetzen Sie die Laptop-Batterie. Geben Sie ein: 'REPLACE_BATTERY'",
-                        solution: "REPLACE_BATTERY",
-                        pay: 20,
-                        successRate: 1.0,
-                        loadingTime: 8000
-                    },
-                    "INSTALL_PRINTER": {
-                        name: "INSTALL_PRINTER",
-                        message: "Installieren Sie einen Drucker und seine Treiber. Geben Sie ein: 'INSTALL_PRINTER'",
-                        solution: "INSTALL_PRINTER",
-                        pay: 25,
-                        successRate: 1.0,
-                        loadingTime: 15000
-                    },
-                    "CHANGE_THERMAL_PASTE": {
-                        name: "CHANGE_THERMAL_PASTE",
-                        message: "Wechseln Sie die Wärmeleitpaste auf der CPU. Geben Sie ein: 'CHANGE_PASTE'",
-                        solution: "CHANGE_PASTE",
-                        pay: 30,
-                        successRate: 0.9,
-                        loadingTime: 10000
-                    },
-                    "SETUP_WIFI": {
-                        name: "SETUP_WIFI",
-                        message: "Richten Sie ein drahtloses Netzwerk für einen Kunden ein. Geben Sie ein: 'SETUP_WIFI'",
-                        solution: "SETUP_WIFI",
-                        pay: 20,
-                        successRate: 1.0,
-                        loadingTime: 10000
-                    },
-                    "UPGRADE_RAM": {
-                        name: "UPGRADE_RAM",
-                        message: "Fügen Sie dem Computer ein zusätzliches RAM-Modul hinzu. Geben Sie ein: 'ADD_RAM'",
-                        solution: "ADD_RAM",
-                        pay: 35,
-                        successRate: 1.0,
-                        loadingTime: 12000
-                    },
-                    "REPLACE_GPU": {
-                        name: "REPLACE_GPU",
-                        message: "Ersetzen Sie die Grafikkarte durch eine neue. Geben Sie ein: 'REPLACE_GPU'",
-                        solution: "REPLACE_GPU",
-                        pay: 40,
-                        successRate: 1.0,
-                        loadingTime: 15000
-                    },
-                    "RESET_PASSWORD": {
-                        name: "RESET_PASSWORD",
-                        message: "Der Kunde hat sein Passwort vergessen. Setzen Sie es zurück. Geben Sie ein: 'RESET_PASSWORD'",
-                        solution: "RESET_PASSWORD",
-                        pay: 10,
-                        successRate: 1.0,
-                        loadingTime: 5000
-                    },
-                    "CLEAN_DUST": {
-                        name: "CLEAN_DUST",
-                        message: "Reinigen Sie das Innere des Computers von Staub. Geben Sie ein: 'CLEAN_DUST'",
-                        solution: "CLEAN_DUST",
-                        pay: 15,
-                        successRate: 1.0,
-                        loadingTime: 8000
+                        loadingTime: 10000 
                     }
                 },
                 shopItems: {
@@ -1602,18 +809,7 @@
                     'network_adapter': 'Netzwerkadapter',
                     'cpu': 'CPU',
                     'gpu': 'Grafikkarte',
-                    'ram': 'RAM',
-                    'compressed_air': 'Druckluft',
-                    'psu': 'Netzteil',
-                    'hdd_tool': 'Festplatten-Tool',
-                    'motherboard': 'Mainboard',
-                    'driver_software': 'Treiber-Software',
-                    'keyboard': 'Tastatur',
-                    'monitor': 'Monitor',
-                    'os_installer': 'OS-Installations-Tool',
-                    'webcam': 'Webcam',
-                    'fan': 'Lüfter',
-                    'pc_parts': 'PC-Teile'
+                    'ram': 'RAM'
                 },
                 repairMode: "REPARATURMODUS: Der Computer kann nicht mit der Tastatur gesteuert werden. Verwenden Sie die Maus, um einzukaufen, zu verkaufen oder den Laden zu verlassen.",
                 taskInfo: "{name} (Bezahlung: {pay}$)",
@@ -1703,126 +899,6 @@
                         tool: "gpu",
                         loadingTime: 10000,
                         successRate: 1.0
-                    },
-                    "OVERHEATING_ISSUE": {
-                        name: "OVERHEATING_ISSUE",
-                        message: "Los componentes se están sobrecalentando. Limpie el sistema de enfriamiento. Ingrese: 'CLEAN_FANS'",
-                        solution: "CLEAN_FANS",
-                        tool: "compressed_air",
-                        loadingTime: 8000,
-                        successRate: 0.95
-                    },
-                    "POWER_SUPPLY_FAILURE": {
-                        name: "POWER_SUPPLY_FAILURE",
-                        message: "La computadora se apaga constantemente. La fuente de alimentación está fallando. Ingrese: 'REPLACE_PSU'",
-                        solution: "REPLACE_PSU",
-                        tool: "psu",
-                        loadingTime: 12000,
-                        successRate: 1.0
-                    },
-                    "HDD_BAD_SECTORS": {
-                        name: "HDD_BAD_SECTORS",
-                        message: "El disco duro tiene sectores defectuosos. Ejecute una verificación. Ingrese: 'CHECK_DISK'",
-                        solution: "CHECK_DISK",
-                        tool: "hdd_tool",
-                        loadingTime: 15000,
-                        successRate: 0.75
-                    },
-                    "BROKEN_MOTHERBOARD": {
-                        name: "BROKEN_MOTHERBOARD",
-                        message: "La placa base no funciona. Debe reemplazarla. Ingrese: 'REPLACE_MOBO'",
-                        solution: "REPLACE_MOBO",
-                        tool: "motherboard",
-                        loadingTime: 20000,
-                        successRate: 1.0
-                    },
-                    "SOUND_CARD_ISSUE": {
-                        name: "SOUND_CARD_ISSUE",
-                        message: "No hay sonido. Intente reinstalar los controladores de sonido. Ingrese: 'REINSTALL_SOUND_DRIVER'",
-                        solution: "REINSTALL_SOUND_DRIVER",
-                        tool: "driver_software",
-                        loadingTime: 7000,
-                        successRate: 0.9
-                    },
-                    "BROKEN_KEYBOARD": {
-                        name: "BROKEN_KEYBOARD",
-                        message: "El teclado no funciona. Reemplácelo por uno nuevo. Ingrese: 'REPLACE_KEYBOARD'",
-                        solution: "REPLACE_KEYBOARD",
-                        tool: "keyboard",
-                        loadingTime: 5000,
-                        successRate: 1.0
-                    },
-                    "DEAD_PIXELS": {
-                        name: "DEAD_PIXELS",
-                        message: "Hay píxeles muertos en el monitor. Debe ser reemplazado. Ingrese: 'REPLACE_MONITOR'",
-                        solution: "REPLACE_MONITOR",
-                        tool: "monitor",
-                        loadingTime: 10000,
-                        successRate: 1.0
-                    },
-                    "CORRUPT_OS": {
-                        name: "CORRUPT_OS",
-                        message: "El sistema operativo está dañado. Se requiere reinstalación. Ingrese: 'REINSTALL_OS'",
-                        solution: "REINSTALL_OS",
-                        tool: "os_installer",
-                        loadingTime: 30000,
-                        successRate: 0.8
-                    },
-                    "MISSING_DRIVERS": {
-                        name: "MISSING_DRIVERS",
-                        message: "Faltan controladores de hardware. Ejecute una instalación automática. Ingrese: 'INSTALL_DRIVERS'",
-                        solution: "INSTALL_DRIVERS",
-                        tool: "driver_software",
-                        loadingTime: 15000,
-                        successRate: 0.9
-                    },
-                    "BROKEN_WEBCAM": {
-                        name: "BROKEN_WEBCAM",
-                        message: "La webcam no se enciende. Reemplácela. Ingrese: 'REPLACE_WEBCAM'",
-                        solution: "REPLACE_WEBCAM",
-                        tool: "webcam",
-                        loadingTime: 6000,
-                        successRate: 1.0
-                    },
-                    "SLOW_BOOT": {
-                        name: "SLOW_BOOT",
-                        message: "La computadora se inicia muy lentamente. Desfragmente el disco. Ingrese: 'DEFRAG_DISK'",
-                        solution: "DEFRAG_DISK",
-                        tool: "hdd_tool",
-                        loadingTime: 25000,
-                        successRate: 0.85
-                    },
-                    "BLUE_SCREEN_ERROR": {
-                        name: "BLUE_SCREEN_ERROR",
-                        message: "El sistema se bloquea constantemente. Verifique los archivos del sistema. Ingrese: 'SFC_SCAN'",
-                        solution: "SFC_SCAN",
-                        tool: "os_installer",
-                        loadingTime: 18000,
-                        successRate: 0.9
-                    },
-                    "FROZEN_SYSTEM": {
-                        name: "FROZEN_SYSTEM",
-                        message: "El sistema se congela. Verifique los módulos de RAM. Ingrese: 'CHECK_RAM'",
-                        solution: "CHECK_RAM",
-                        tool: "ram_tester",
-                        loadingTime: 9000,
-                        successRate: 0.9
-                    },
-                    "LOUD_FAN": {
-                        name: "LOUD_FAN",
-                        message: "El ventilador es extremadamente ruidoso. Límpielo o reemplácelo. Ingrese: 'REPLACE_FAN'",
-                        solution: "REPLACE_FAN",
-                        tool: "fan",
-                        loadingTime: 7000,
-                        successRate: 1.0
-                    },
-                    "BUILD_PC": {
-                        name: "BUILD_PC",
-                        message: "Ensamble una nueva computadora y ejecute un benchmark. Ingrese: 'ASSEMBLE_PC'",
-                        solution: "ASSEMBLE_PC",
-                        tool: "pc_parts",
-                        loadingTime: 30000,
-                        successRate: 0.95
                     }
                 },
                 sideTasks: {
@@ -1836,83 +912,11 @@
                     },
                     "CLEAN_UP": {
                         name: "CLEAN_UP",
-                        message: "Limpie los archivos temporales para acelerar el sistema. Ingrese: 'CLEAN_FILES'",
-                        solution: "CLEAN_FILES",
+                        message: "Limpie los archivos temporales para acelerar el sistema. Ingrese: 'SCAN_VIRUS'",
+                        solution: "SCAN_VIRUS",
                         pay: 10,
                         successRate: 0.85,
-                        loadingTime: 10000
-                    },
-                    "SOFTWARE_UPDATE": {
-                        name: "SOFTWARE_UPDATE",
-                        message: "Actualice todo el software a la última versión. Ingrese: 'UPDATE_SOFTWARE'",
-                        solution: "UPDATE_SOFTWARE",
-                        pay: 15,
-                        successRate: 0.9,
-                        loadingTime: 12000
-                    },
-                    "REPLACE_BATTERY": {
-                        name: "REPLACE_BATTERY",
-                        message: "Reemplace la batería del portátil. Ingrese: 'REPLACE_BATTERY'",
-                        solution: "REPLACE_BATTERY",
-                        pay: 20,
-                        successRate: 1.0,
-                        loadingTime: 8000
-                    },
-                    "INSTALL_PRINTER": {
-                        name: "INSTALL_PRINTER",
-                        message: "Instale una impresora y sus controladores. Ingrese: 'INSTALL_PRINTER'",
-                        solution: "INSTALL_PRINTER",
-                        pay: 25,
-                        successRate: 1.0,
-                        loadingTime: 15000
-                    },
-                    "CHANGE_THERMAL_PASTE": {
-                        name: "CHANGE_THERMAL_PASTE",
-                        message: "Cambie la pasta térmica en la CPU. Ingrese: 'CHANGE_PASTE'",
-                        solution: "CHANGE_PASTE",
-                        pay: 30,
-                        successRate: 0.9,
-                        loadingTime: 10000
-                    },
-                    "SETUP_WIFI": {
-                        name: "SETUP_WIFI",
-                        message: "Configure una red inalámbrica para un cliente. Ingrese: 'SETUP_WIFI'",
-                        solution: "SETUP_WIFI",
-                        pay: 20,
-                        successRate: 1.0,
-                        loadingTime: 10000
-                    },
-                    "UPGRADE_RAM": {
-                        name: "UPGRADE_RAM",
-                        message: "Agregue un módulo de RAM adicional a la computadora. Ingrese: 'ADD_RAM'",
-                        solution: "ADD_RAM",
-                        pay: 35,
-                        successRate: 1.0,
-                        loadingTime: 12000
-                    },
-                    "REPLACE_GPU": {
-                        name: "REPLACE_GPU",
-                        message: "Reemplace la tarjeta gráfica por una nueva. Ingrese: 'REPLACE_GPU'",
-                        solution: "REPLACE_GPU",
-                        pay: 40,
-                        successRate: 1.0,
-                        loadingTime: 15000
-                    },
-                    "RESET_PASSWORD": {
-                        name: "RESET_PASSWORD",
-                        message: "El cliente olvidó su contraseña. Restablézcala. Ingrese: 'RESET_PASSWORD'",
-                        solution: "RESET_PASSWORD",
-                        pay: 10,
-                        successRate: 1.0,
-                        loadingTime: 5000
-                    },
-                    "CLEAN_DUST": {
-                        name: "CLEAN_DUST",
-                        message: "Limpie el interior de la computadora del polvo. Ingrese: 'CLEAN_DUST'",
-                        solution: "CLEAN_DUST",
-                        pay: 15,
-                        successRate: 1.0,
-                        loadingTime: 8000
+                        loadingTime: 10000 
                     }
                 },
                 shopItems: {
@@ -1921,18 +925,7 @@
                     'network_adapter': 'adaptador de red',
                     'cpu': 'CPU',
                     'gpu': 'tarjeta gráfica',
-                    'ram': 'RAM',
-                    'compressed_air': 'aire comprimido',
-                    'psu': 'fuente de alimentación',
-                    'hdd_tool': 'herramienta de disco duro',
-                    'motherboard': 'placa base',
-                    'driver_software': 'software de controladores',
-                    'keyboard': 'teclado',
-                    'monitor': 'monitor',
-                    'os_installer': 'instalador del SO',
-                    'webcam': 'webcam',
-                    'fan': 'ventilador',
-                    'pc_parts': 'partes de PC'
+                    'ram': 'RAM'
                 },
                 repairMode: "MODO DE REPARACIÓN: La computadora no se puede controlar con el teclado. Usa el mouse para comprar, vender o salir de la tienda.",
                 taskInfo: "{name} (Pago: {pay}$)",
@@ -1941,7 +934,7 @@
                 mainTaskHeader: "Nuevo trabajo principal",
                 newTasksAvailable: "¡Han llegado nuevas tareas! Haga clic en 'TAREAS' para verlas.",
                 acceptCommand: "ACCEPT",
-                tasksCommand: "TAREAS",
+                tasksCommand: "TAREDA",
                 shopCommand: "TIENDA",
                 gameSaved: "Juego guardado.",
                 gameLoaded: "Juego cargado. Bienvenido de nuevo!",
@@ -1971,36 +964,12 @@
             "BAD_RAM_MODULE",
             "NETWORK_ADAPTER_FAILURE",
             "CPU_FAILURE",
-            "GPU_FAILURE",
-            "OVERHEATING_ISSUE",
-            "POWER_SUPPLY_FAILURE",
-            "HDD_BAD_SECTORS",
-            "BROKEN_MOTHERBOARD",
-            "SOUND_CARD_ISSUE",
-            "BROKEN_KEYBOARD",
-            "DEAD_PIXELS",
-            "CORRUPT_OS",
-            "MISSING_DRIVERS",
-            "BROKEN_WEBCAM",
-            "SLOW_BOOT",
-            "BLUE_SCREEN_ERROR",
-            "FROZEN_SYSTEM",
-            "LOUD_FAN",
-            "BUILD_PC"
+            "GPU_FAILURE"
         ];
         
         const sideTaskList = [
             "DATA_RECOVERY",
-            "CLEAN_UP",
-            "SOFTWARE_UPDATE",
-            "REPLACE_BATTERY",
-            "INSTALL_PRINTER",
-            "CHANGE_THERMAL_PASTE",
-            "SETUP_WIFI",
-            "UPGRADE_RAM",
-            "REPLACE_GPU",
-            "RESET_PASSWORD",
-            "CLEAN_DUST"
+            "CLEAN_UP"
         ];
         
         const shopItems = {
@@ -2009,18 +978,7 @@
             'network_adapter': { price: 50 },
             'cpu': { price: 100 },
             'gpu': { price: 200 },
-            'ram': { price: 75 },
-            'compressed_air': { price: 10 },
-            'psu': { price: 80 },
-            'hdd_tool': { price: 30 },
-            'motherboard': { price: 150 },
-            'driver_software': { price: 25 },
-            'keyboard': { price: 30 },
-            'monitor': { price: 120 },
-            'os_installer': { price: 50 },
-            'webcam': { price: 20 },
-            'fan': { price: 15 },
-            'pc_parts': { price: 500 }
+            'ram': { price: 75 }
         };
 
         // Funkce pro získání překladu
@@ -2105,18 +1063,7 @@
                     'network_adapter': 0,
                     'cpu': 0,
                     'gpu': 0,
-                    'ram': 0,
-                    'compressed_air': 0,
-                    'psu': 0,
-                    'hdd_tool': 0,
-                    'motherboard': 0,
-                    'driver_software': 0,
-                    'keyboard': 0,
-                    'monitor': 0,
-                    'os_installer': 0,
-                    'webcam': 0,
-                    'fan': 0,
-                    'pc_parts': 0
+                    'ram': 0
                 },
                 level: 1
             };
@@ -2126,6 +1073,7 @@
             updateButtonPanelText();
             inputField.focus(); 
             startJob(); // Nový řádek: Okamžitě začne nový úkol
+            playMusic();
         }
 
         // Načtení hry
@@ -2141,6 +1089,7 @@
                 startMainJobTimer();
                 updateButtonPanelText();
                 inputField.focus();
+                playMusic();
             } else {
                 alert(getTranslation('noSavedGame'));
             }
@@ -2216,11 +1165,15 @@
                     startJob();
                 }
                 startMainJobTimer();
-            }, 180000); // každé 3 minuty
+            }, 60000); // každá 1 minuta
         }
 
         // Generování nového vedlejšího úkolu
         function generateNewTask() {
+            const MAX_SIDE_TASKS = 5;
+            if (gameState.availableTasks.length >= MAX_SIDE_TASKS) {
+                return;
+            }
             const randomTaskKey = sideTaskList[Math.floor(Math.random() * sideTaskList.length)];
             const taskData = translations[currentLang].sideTasks[randomTaskKey];
             gameState.availableTasks.push({
@@ -2258,133 +1211,73 @@
                 name: gameState.currentProblem.name,
                 message: gameState.currentProblem.message
             }));
-        }
-
-        // Zobrazení obchodu
-        function showShopMenu() {
-            consoleContainer.style.display = 'none';
-            buttonPanel.style.display = 'none';
-            shopMenu.style.display = 'flex';
-            
-            shopTitle.textContent = getTranslation('shopWelcome', { money: gameState.money });
-            shopDescription.textContent = getTranslation('shopInstructions');
-
-            shopItemsList.innerHTML = '';
-            
-            // Tlačítka pro nákup
-            for (const item in shopItems) {
-                const itemDiv = document.createElement('span');
-                itemDiv.className = 'menu-item';
-                itemDiv.textContent = getTranslation('shopItem', { item: translations[currentLang].shopItems[item], price: shopItems[item].price });
-                itemDiv.dataset.item = item;
-                itemDiv.addEventListener('click', () => buyItem(itemDiv.dataset.item));
-                shopItemsList.appendChild(itemDiv);
-            }
-
-            // Tlačítka pro prodej
-            const inventoryItems = Object.keys(gameState.inventory).filter(item => gameState.inventory[item] > 0);
-            if (inventoryItems.length > 0) {
-                 const sellHeader = document.createElement('h3');
-                 sellHeader.textContent = "Váš inventář (klikněte pro prodej)";
-                 shopItemsList.appendChild(sellHeader);
-
-                 for (const item of inventoryItems) {
-                    const sellDiv = document.createElement('span');
-                    sellDiv.className = 'menu-item';
-                    sellDiv.textContent = `${translations[currentLang].shopItems[item]} (x${gameState.inventory[item]}) - prodat za ${shopItems[item].price / 2}$`;
-                    sellDiv.dataset.item = item;
-                    sellDiv.addEventListener('click', () => sellItem(sellDiv.dataset.item));
-                    shopItemsList.appendChild(sellDiv);
-                 }
-            }
-        }
-        
-        // Zobrazení seznamu úkolů
-        function showTasksMenu() {
-            consoleContainer.style.display = 'none';
-            buttonPanel.style.display = 'none';
-            tasksMenu.style.display = 'flex';
-
-            tasksTitle.textContent = getTranslation('tasksHeader');
-            mainTasksList.innerHTML = '';
-            sideTasksList.innerHTML = '';
-
-            // Hlavní úkol
-            if (gameState.currentProblem) {
-                const mainTask = document.createElement('span');
-                mainTask.className = 'menu-item';
-                mainTask.textContent = getTranslation('taskInfo', {
-                    name: gameState.currentProblem.name,
-                    pay: gameState.currentProblem.pay
-                });
-                mainTasksList.appendChild(mainTask);
-            } else {
-                 const noMainTask = document.createElement('p');
-                 noMainTask.textContent = "Žádný aktivní hlavní úkol.";
-                 mainTasksList.appendChild(noMainTask);
-            }
-
-            // Vedlejší úkoly
-            if (gameState.availableTasks.length === 0) {
-                const noTasks = document.createElement('p');
-                noTasks.textContent = getTranslation('noTasks');
-                sideTasksList.appendChild(noTasks);
-            } else {
-                gameState.availableTasks.forEach((task, index) => {
-                    const taskDiv = document.createElement('span');
-                    taskDiv.className = 'menu-item';
-                    taskDiv.textContent = getTranslation('taskInfo', {
-                        name: translations[currentLang].sideTasks[task.name].name,
-                        pay: task.pay
-                    });
-                    taskDiv.dataset.taskIndex = index;
-                    taskDiv.addEventListener('click', ()s> acceptTask(taskDiv.dataset.taskIndex));
-                    sideTasksList.appendChild(taskDiv);
-                });
-            }
-        }
-
-        // Přijetí vedlejšího úkolu
-        function acceptTask(index) {
-            const taskIndex = parseInt(index, 10);
-            const selectedTask = gameState.availableTasks[taskIndex];
-            
-            gameState.currentProblem = {
-                name: selectedTask.name,
-                message: selectedTask.message,
-                solution: selectedTask.solution,
-                tool: null,
-                pay: selectedTask.pay,
-                isSideTask: true,
-                successRate: selectedTask.successRate,
-                loadingTime: selectedTask.loadingTime
-            };
             
             returnToConsole();
         }
 
-        // Zpracování příkazů z inputu
-        function handleInput(command) {
-            const parts = command.trim().toUpperCase().split(' ');
-            const mainCommand = parts[0];
+        // Dokončení úkolu
+        function finishJob() {
+            // Vymaže text z konzole před zobrazením výsledku
+            consoleDiv.textContent = ''; 
             
-            if (mainCommand === 'RESTART') {
-                simulateRestart();
+            const pay = gameState.currentProblem.pay;
+            gameState.money += pay;
+            gameState.level++;
+
+            if (gameState.currentProblem.isSideTask) {
+                const taskIndex = gameState.availableTasks.findIndex(t => t.solution === gameState.currentProblem.solution);
+                if (taskIndex !== -1) {
+                    gameState.availableTasks.splice(taskIndex, 1);
+                }
+            }
+            
+            if (gameState.currentProblem.tool && gameState.inventory[gameState.currentProblem.tool] > 0) {
+                gameState.inventory[gameState.currentProblem.tool]--;
+            }
+
+            printToConsole(getTranslation('jobDone', { pay, money: gameState.money, level: gameState.level }));
+            gameState.currentProblem = null;
+            
+            if (jobTimer) {
+                clearTimeout(jobTimer);
+            }
+            startMainJobTimer();
+
+            returnToConsole();
+        }
+
+        // Zpracování vstupu z konzole
+        function handleInput(input) {
+            const normalizedInput = input.trim().toUpperCase();
+            const currentProblem = gameState.currentProblem;
+            
+            if (normalizedInput === getTranslation('tasksCommand').toUpperCase()) {
+                showTasksMenu();
+                return;
+            }
+            
+            if (normalizedInput === getTranslation('shopCommand').toUpperCase()) {
+                showShopMenu();
+                return;
+            }
+            
+            if (normalizedInput === getTranslation('saveCommand').toUpperCase()) {
+                saveGame();
                 return;
             }
 
-            if (gameState.currentProblem) {
-                if (mainCommand === gameState.currentProblem.solution.toUpperCase()) {
-                    if (gameState.currentProblem.tool) {
-                        if (gameState.inventory[gameState.currentProblem.tool] > 0) {
-                             simulateLoading(gameState.currentProblem.loadingTime, gameState.currentProblem.successRate, finishJob);
-                        } else {
-                            printToConsole(getTranslation('invalidTool'));
-                            unplugComponent();
-                        }
-                    } else { // Vedlejší úkoly nemají nástroj
-                        simulateLoading(gameState.currentProblem.loadingTime, gameState.currentProblem.successRate, finishJob);
+            if (normalizedInput === getTranslation('returnToMenuCommand').toUpperCase()) {
+                returnToMainMenu();
+                return;
+            }
+
+            if (currentProblem) {
+                if (currentProblem.solution === normalizedInput) {
+                    if (currentProblem.tool && gameState.inventory[currentProblem.tool] <= 0) {
+                        printToConsole(getTranslation('invalidTool'));
+                        return;
                     }
+                    startLoading(currentProblem.loadingTime, currentProblem.successRate, finishJob);
                 } else {
                     printToConsole(getTranslation('invalidCommand'));
                 }
@@ -2393,132 +1286,190 @@
             }
         }
         
-        // Funkce pro simulaci načítání
-        function simulateLoading(baseTime, successRate, callback) {
+        // Zobrazení nabídky úkolů
+        function showTasksMenu() {
             consoleContainer.style.display = 'none';
-            loadingOverlay.style.display = 'flex';
-            inputField.disabled = true;
-
-            const randomTime = Math.floor(Math.random() * 10001); // 0-10 seconds
-            const totalTime = baseTime + randomTime;
-            const startTime = Date.now();
+            shopMenu.style.display = 'none';
+            tasksMenu.style.display = 'flex';
+            updateTasksMenu();
+        }
+        
+        // Aktualizace nabídky úkolů
+        function updateTasksMenu() {
+            tasksTitle.textContent = getTranslation('tasksCommand');
+            exitTasksButton.textContent = getTranslation('exitTasksButton');
+            mainTasksList.innerHTML = '';
+            sideTasksList.innerHTML = '';
             
-            const interval = setInterval(() => {
-                const elapsed = Date.now() - startTime;
-                const progress = (elapsed / totalTime) * 100;
-                progressBar.style.width = `${progress}%`;
-                progressBar.textContent = `${Math.floor(progress)}%`;
+            if (gameState.currentProblem) {
+                mainTasksList.innerHTML = `
+                    <div class="menu-item">
+                        <strong>${getTranslation('mainTaskHeader')}:</strong> ${getTranslation('taskInfo', { name: gameState.currentProblem.name, pay: gameState.currentProblem.pay })}
+                    </div>
+                `;
+            } else {
+                mainTasksList.innerHTML = `<p>${getTranslation('noTasks')}</p>`;
+            }
 
-                if (elapsed >= totalTime) {
-                    clearInterval(interval);
-                    
-                    const success = Math.random() < successRate;
-                    
-                    if (success) {
-                        loadingText.textContent = getTranslation('success');
-                        setTimeout(() => {
-                            loadingOverlay.style.display = 'none';
-                            inputField.disabled = false;
-                            callback();
-                        }, 1000);
-                    } else {
-                        loadingText.textContent = getTranslation('failure');
-                        setTimeout(() => {
-                             loadingOverlay.style.display = 'none';
-                             inputField.disabled = false;
-                             returnToConsole();
-                        }, 1000);
-                    }
-                }
-            }, 100);
+            if (gameState.availableTasks.length > 0) {
+                const taskHeader = document.createElement('p');
+                taskHeader.textContent = getTranslation('tasksHeader');
+                sideTasksList.appendChild(taskHeader);
+                
+                gameState.availableTasks.forEach(task => {
+                    const taskItem = document.createElement('div');
+                    taskItem.classList.add('menu-item');
+                    taskItem.textContent = getTranslation('taskInfo', { name: task.name, pay: task.pay });
+                    taskItem.onclick = () => acceptSideTask(task);
+                    sideTasksList.appendChild(taskItem);
+                });
+            } else {
+                sideTasksList.innerHTML = `<p>${getTranslation('noTasks')}</p>`;
+            }
         }
 
-        // Funkce pro nákup
+        // Přijetí vedlejšího úkolu
+        function acceptSideTask(task) {
+            if (gameState.currentProblem) {
+                alert(getTranslation('mainTaskHeader') + ' ' + getTranslation('taskInfo', { name: gameState.currentProblem.name, pay: gameState.currentProblem.pay }));
+                return;
+            }
+            
+            gameState.currentProblem = task;
+            returnToConsole();
+        }
+
+        // Zobrazení obchodu
+        function showShopMenu() {
+            consoleContainer.style.display = 'none';
+            tasksMenu.style.display = 'none';
+            shopMenu.style.display = 'flex';
+            updateShopMenu();
+        }
+
+        // Aktualizace nabídky obchodu
+        function updateShopMenu() {
+            shopTitle.textContent = getTranslation('shopCommand');
+            shopDescription.textContent = getTranslation('shopWelcome', { money: gameState.money });
+            shopItemsList.innerHTML = '';
+
+            const buySection = document.createElement('div');
+            buySection.classList.add('menu-section');
+            buySection.innerHTML = `<h3>${getTranslation('buyCommand')}</h3><p>${getTranslation('shopInstructions')}</p>`;
+            const buyList = document.createElement('div');
+            buyList.style.display = 'flex';
+            buyList.style.flexWrap = 'wrap';
+            buySection.appendChild(buyList);
+            
+            for (const item in shopItems) {
+                const itemDiv = document.createElement('div');
+                itemDiv.classList.add('menu-item');
+                itemDiv.textContent = getTranslation('shopItem', { item: getTranslation('shopItems')[item], price: shopItems[item].price });
+                itemDiv.onclick = () => buyItem(item);
+                buyList.appendChild(itemDiv);
+            }
+            shopItemsList.appendChild(buySection);
+
+            const sellSection = document.createElement('div');
+            sellSection.classList.add('menu-section');
+            sellSection.innerHTML = `<h3>${getTranslation('sellCommand')}</h3><p>${getTranslation('shopInstructions')}</p>`;
+            const sellList = document.createElement('div');
+            sellList.style.display = 'flex';
+            sellList.style.flexWrap = 'wrap';
+            sellSection.appendChild(sellList);
+            
+            for (const item in gameState.inventory) {
+                if (gameState.inventory[item] > 0) {
+                    const itemDiv = document.createElement('div');
+                    itemDiv.classList.add('menu-item');
+                    itemDiv.textContent = `${getTranslation('shopItems')[item]} (x${gameState.inventory[item]})`;
+                    itemDiv.onclick = () => sellItem(item);
+                    sellList.appendChild(itemDiv);
+                }
+            }
+            shopItemsList.appendChild(sellSection);
+
+            exitShopButton.textContent = getTranslation('exitShopCommand');
+        }
+
+        // Nákup položky
         function buyItem(item) {
-            if (shopItems[item] && gameState.money >= shopItems[item].price) {
-                gameState.money -= shopItems[item].price;
+            const itemPrice = shopItems[item].price;
+            if (gameState.money >= itemPrice) {
+                gameState.money -= itemPrice;
                 gameState.inventory[item]++;
-                showShopMenu();
+                updateShopMenu();
             } else {
-                 printToConsole(getTranslation('notEnoughMoney'));
+                alert(getTranslation('notEnoughMoney'));
             }
         }
 
-        // Funkce pro prodej
+        // Prodej položky
         function sellItem(item) {
-            if (shopItems[item] && gameState.inventory[item] > 0) {
-                gameState.money += shopItems[item].price / 2;
+            if (gameState.inventory[item] > 0) {
+                const sellPrice = Math.floor(shopItems[item].price / 2);
+                gameState.money += sellPrice;
                 gameState.inventory[item]--;
-                showShopMenu();
+                updateShopMenu();
             } else {
-                 printToConsole(getTranslation('noItemToSell'));
+                alert(getTranslation('noItemToSell'));
             }
         }
 
-        // Vstup do speciálního režimu (např. po chybě nástroje)
-        function unplugComponent() {
-            inputField.style.display = 'none';
-            promptSpan.style.display = 'none';
+        // Funkce pro načítací obrazovku
+        function startLoading(time, successRate, callback) {
+            // Vyčistí text konzole před začátkem načítání
+            consoleDiv.textContent = ''; 
+            
+            consoleContainer.style.display = 'none';
             buttonPanel.style.display = 'none';
-            showShopMenu();
-            shopDescription.textContent = getTranslation('repairMode');
-            shopTitle.textContent = getTranslation('shopWelcome', { money: gameState.money });
-        }
-
-        // Dokončení úkolu
-        function finishJob() {
-            const pay = gameState.currentProblem.pay;
-            gameState.money += pay;
-            gameState.level++;
-
-            if (gameState.currentProblem.isSideTask) {
-                 const taskIndex = gameState.availableTasks.findIndex(t => t.solution === gameState.currentProblem.solution);
-                 if (taskIndex !== -1) {
-                     gameState.availableTasks.splice(taskIndex, 1);
-                 }
-            }
+            loadingOverlay.style.display = 'flex';
+            loadingText.textContent = getTranslation('loading');
+            progressBar.style.width = '0%';
             
-            if (gameState.currentProblem.tool && gameState.inventory[gameState.currentProblem.tool] > 0) {
-                 gameState.inventory[gameState.currentProblem.tool]--;
-            }
+            let progress = 0;
+            const interval = 100;
+            const step = (interval / time) * 100;
+            const loadingInterval = setInterval(() => {
+                progress += step;
+                if (progress >= 100) {
+                    progress = 100;
+                    clearInterval(loadingInterval);
+                    
+                    const success = Math.random() <= successRate;
+                    loadingText.textContent = success ? getTranslation('success') : getTranslation('failure');
 
-            printToConsole(getTranslation('jobDone', { pay, money: gameState.money, level: gameState.level }));
-            gameState.currentProblem = null;
-            returnToConsole(); // Návrat do normálního stavu
-        }
-
-        // Simulace restartu počítače
-        function simulateRestart() {
-            let dots = 0;
-            inputField.disabled = true;
-            promptSpan.textContent = '...';
-            
-            const restartInterval = setInterval(() => {
-                dots++;
-                if (dots > 3) {
-                    dots = 1;
+                    setTimeout(() => {
+                        loadingOverlay.style.display = 'none';
+                        if (success) {
+                            callback();
+                        } else {
+                            gameState.currentProblem = null;
+                            returnToConsole();
+                        }
+                    }, 500); 
                 }
-                promptSpan.textContent = getTranslation('restarting') + '.'.repeat(dots);
-            }, 500);
-
-            setTimeout(() => {
-                clearInterval(restartInterval);
-                inputField.disabled = false;
-                promptSpan.textContent = 'C:\\>';
-                printToConsole(getTranslation('restartDone'));
-            }, 3000);
+                progressBar.style.width = progress + '%';
+            }, interval);
         }
 
-        // Kontrola existence uložené hry
+        // Přehrávání hudby
+        function playMusic() {
+            backgroundMusic.play().catch(error => {
+                console.error("Přehrávání hudby selhalo:", error);
+            });
+        }
+        
+        // Zkontrolovat existenci uložené hry
         function checkSavedGame() {
             if (localStorage.getItem('opravarec_pc_save')) {
-                loadButton.style.display = 'inline-block';
+                loadButton.style.display = 'block';
             } else {
                 loadButton.style.display = 'none';
             }
         }
 
-        // Listenery pro interakci
+        // Event listenery
         inputField.addEventListener('keydown', (event) => {
             if (event.key === 'Enter') {
                 handleInput(inputField.value);
