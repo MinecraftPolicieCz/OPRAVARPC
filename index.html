@@ -1217,6 +1217,9 @@
 
         // Dokončení úkolu
         function finishJob() {
+            // Vymaže text z konzole před zobrazením výsledku
+            consoleDiv.textContent = ''; 
+            
             const pay = gameState.currentProblem.pay;
             gameState.money += pay;
             gameState.level++;
@@ -1234,7 +1237,12 @@
 
             printToConsole(getTranslation('jobDone', { pay, money: gameState.money, level: gameState.level }));
             gameState.currentProblem = null;
+            
+            if (jobTimer) {
+                clearTimeout(jobTimer);
+            }
             startMainJobTimer();
+
             returnToConsole();
         }
 
@@ -1410,8 +1418,9 @@
 
         // Funkce pro načítací obrazovku
         function startLoading(time, successRate, callback) {
-            consoleDiv.textContent = ''; // Vymaže text konzole
-
+            // Vyčistí text konzole před začátkem načítání
+            consoleDiv.textContent = ''; 
+            
             consoleContainer.style.display = 'none';
             buttonPanel.style.display = 'none';
             loadingOverlay.style.display = 'flex';
