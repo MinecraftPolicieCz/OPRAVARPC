@@ -672,7 +672,7 @@
                 sideTasks: {
                     "DATA_RECOVERY": {
                         name: "DATA_RECOVERY",
-                        message: "Klient usunął ważne pliki. Odzyskaj je. Wpisz: 'RECOVER_FILES'",
+                        message: "Klient usunął ważne pliky. Odzyskaj je. Wpisz: 'RECOVER_FILES'",
                         solution: "RECOVER_FILES",
                         pay: 15,
                         loadingTime: 10000,
@@ -934,7 +934,7 @@
                 mainTaskHeader: "Nuevo trabajo principal",
                 newTasksAvailable: "¡Han llegado nuevas tareas! Haga clic en 'TAREAS' para verlas.",
                 acceptCommand: "ACCEPT",
-                tasksCommand: "TAREAS",
+                tasksCommand: "TAREDA",
                 shopCommand: "TIENDA",
                 gameSaved: "Juego guardado.",
                 gameLoaded: "Juego cargado. Bienvenido de nuevo!",
@@ -1165,11 +1165,15 @@
                     startJob();
                 }
                 startMainJobTimer();
-            }, 180000); // každé 3 minuty
+            }, 60000); // každá 1 minuta
         }
 
         // Generování nového vedlejšího úkolu
         function generateNewTask() {
+            const MAX_SIDE_TASKS = 5;
+            if (gameState.availableTasks.length >= MAX_SIDE_TASKS) {
+                return;
+            }
             const randomTaskKey = sideTaskList[Math.floor(Math.random() * sideTaskList.length)];
             const taskData = translations[currentLang].sideTasks[randomTaskKey];
             gameState.availableTasks.push({
@@ -1207,211 +1211,8 @@
                 name: gameState.currentProblem.name,
                 message: gameState.currentProblem.message
             }));
-        }
-
-        // Zobrazení obchodu
-        function showShopMenu() {
-            consoleContainer.style.display = 'none';
-            buttonPanel.style.display = 'none';
-            shopMenu.style.display = 'flex';
-            
-            shopTitle.textContent = getTranslation('shopWelcome', { money: gameState.money });
-            shopDescription.textContent = getTranslation('shopInstructions');
-
-            shopItemsList.innerHTML = '';
-            
-            // Tlačítka pro nákup
-            for (const item in shopItems) {
-                const itemDiv = document.createElement('span');
-                itemDiv.className = 'menu-item';
-                itemDiv.textContent = getTranslation('shopItem', { item: translations[currentLang].shopItems[item], price: shopItems[item].price });
-                itemDiv.dataset.item = item;
-                itemDiv.addEventListener('click', () => buyItem(itemDiv.dataset.item));
-                shopItemsList.appendChild(itemDiv);
-            }
-
-            // Tlačítka pro prodej
-            const inventoryItems = Object.keys(gameState.inventory).filter(item => gameState.inventory[item] > 0);
-            if (inventoryItems.length > 0) {
-                 const sellHeader = document.createElement('h3');
-                 sellHeader.textContent = "Váš inventář (klikněte pro prodej)";
-                 shopItemsList.appendChild(sellHeader);
-
-                 for (const item of inventoryItems) {
-                    const sellDiv = document.createElement('span');
-                    sellDiv.className = 'menu-item';
-                    sellDiv.textContent = `${translations[currentLang].shopItems[item]} (x${gameState.inventory[item]}) - prodat za ${shopItems[item].price / 2}$`;
-                    sellDiv.dataset.item = item;
-                    sellDiv.addEventListener('click', () => sellItem(sellDiv.dataset.item));
-                    shopItemsList.appendChild(sellDiv);
-                 }
-            }
-        }
-        
-        // Zobrazení seznamu úkolů
-        function showTasksMenu() {
-            consoleContainer.style.display = 'none';
-            buttonPanel.style.display = 'none';
-            tasksMenu.style.display = 'flex';
-
-            tasksTitle.textContent = getTranslation('tasksHeader');
-            mainTasksList.innerHTML = '';
-            sideTasksList.innerHTML = '';
-
-            // Hlavní úkol
-            if (gameState.currentProblem) {
-                const mainTask = document.createElement('span');
-                mainTask.className = 'menu-item';
-                mainTask.textContent = getTranslation('taskInfo', {
-                    name: gameState.currentProblem.name,
-                    pay: gameState.currentProblem.pay
-                });
-                mainTasksList.appendChild(mainTask);
-            } else {
-                 const noMainTask = document.createElement('p');
-                 noMainTask.textContent = "Žádný aktivní hlavní úkol.";
-                 mainTasksList.appendChild(noMainTask);
-            }
-
-            // Vedlejší úkoly
-            if (gameState.availableTasks.length === 0) {
-                const noTasks = document.createElement('p');
-                noTasks.textContent = getTranslation('noTasks');
-                sideTasksList.appendChild(noTasks);
-            } else {
-                gameState.availableTasks.forEach((task, index) => {
-                    const taskDiv = document.createElement('span');
-                    taskDiv.className = 'menu-item';
-                    taskDiv.textContent = getTranslation('taskInfo', {
-                        name: translations[currentLang].sideTasks[task.name].name,
-                        pay: task.pay
-                    });
-                    taskDiv.dataset.taskIndex = index;
-                    taskDiv.addEventListener('click', () => acceptTask(taskDiv.dataset.taskIndex));
-                    sideTasksList.appendChild(taskDiv);
-                });
-            }
-        }
-
-        // Přijetí vedlejšího úkolu
-        function acceptTask(index) {
-            const taskIndex = parseInt(index, 10);
-            const selectedTask = gameState.availableTasks[taskIndex];
-            
-            gameState.currentProblem = {
-                name: selectedTask.name,
-                message: selectedTask.message,
-                solution: selectedTask.solution,
-                tool: null,
-                pay: selectedTask.pay,
-                isSideTask: true,
-                successRate: selectedTask.successRate,
-                loadingTime: selectedTask.loadingTime
-            };
             
             returnToConsole();
-        }
-
-        // Zpracování příkazů z inputu
-        function handleInput(command) {
-            const parts = command.trim().toUpperCase().split(' ');
-            const mainCommand = parts[0];
-            
-            if (mainCommand === 'RESTART') {
-                simulateRestart();
-                return;
-            }
-
-            if (gameState.currentProblem) {
-                if (mainCommand === gameState.currentProblem.solution.toUpperCase()) {
-                    if (gameState.currentProblem.tool) {
-                        if (gameState.inventory[gameState.currentProblem.tool] > 0) {
-                             simulateLoading(gameState.currentProblem.loadingTime, gameState.currentProblem.successRate, finishJob);
-                        } else {
-                            printToConsole(getTranslation('invalidTool'));
-                            unplugComponent();
-                        }
-                    } else { // Vedlejší úkoly nemají nástroj
-                        simulateLoading(gameState.currentProblem.loadingTime, gameState.currentProblem.successRate, finishJob);
-                    }
-                } else {
-                    printToConsole(getTranslation('invalidCommand'));
-                }
-            } else {
-                printToConsole(getTranslation('invalidCommand'));
-            }
-        }
-        
-        // Funkce pro simulaci načítání
-        function simulateLoading(baseTime, successRate, callback) {
-            consoleContainer.style.display = 'none';
-            loadingOverlay.style.display = 'flex';
-            inputField.disabled = true;
-
-            const randomTime = Math.floor(Math.random() * 10001); // 0-10 seconds
-            const totalTime = baseTime + randomTime;
-            const startTime = Date.now();
-            
-            const interval = setInterval(() => {
-                const elapsed = Date.now() - startTime;
-                const progress = (elapsed / totalTime) * 100;
-                progressBar.style.width = `${progress}%`;
-                progressBar.textContent = `${Math.floor(progress)}%`;
-
-                if (elapsed >= totalTime) {
-                    clearInterval(interval);
-                    
-                    const success = Math.random() < successRate;
-                    
-                    if (success) {
-                        loadingText.textContent = getTranslation('success');
-                        setTimeout(() => {
-                            loadingOverlay.style.display = 'none';
-                            inputField.disabled = false;
-                            callback();
-                        }, 1000);
-                    } else {
-                        loadingText.textContent = getTranslation('failure');
-                        setTimeout(() => {
-                             loadingOverlay.style.display = 'none';
-                             inputField.disabled = false;
-                             returnToConsole();
-                        }, 1000);
-                    }
-                }
-            }, 100);
-        }
-
-        // Funkce pro nákup
-        function buyItem(item) {
-            if (shopItems[item] && gameState.money >= shopItems[item].price) {
-                gameState.money -= shopItems[item].price;
-                gameState.inventory[item]++;
-                showShopMenu();
-            } else {
-                 printToConsole(getTranslation('notEnoughMoney'));
-            }
-        }
-
-        // Funkce pro prodej
-        function sellItem(item) {
-            if (shopItems[item] && gameState.inventory[item] > 0) {
-                gameState.money += shopItems[item].price / 2;
-                gameState.inventory[item]--;
-                showShopMenu();
-            } else {
-                 printToConsole(getTranslation('noItemToSell'));
-            }
-        }
-
-        // Vstup do speciálního režimu (např. po chybě nástroje)
-        function unplugComponent() {
-            inputField.style.display = 'none';
-            promptSpan.style.display = 'none';
-            buttonPanel.style.display = 'none';
-            showShopMenu();
-            shopDescription.textContent = getTranslation('repairMode');
-            shopTitle.textContent = getTranslation('shopWelcome', { money: gameState.money });
         }
 
         // Dokončení úkolu
@@ -1421,62 +1222,245 @@
             gameState.level++;
 
             if (gameState.currentProblem.isSideTask) {
-                 const taskIndex = gameState.availableTasks.findIndex(t => t.solution === gameState.currentProblem.solution);
-                 if (taskIndex !== -1) {
-                     gameState.availableTasks.splice(taskIndex, 1);
-                 }
+                const taskIndex = gameState.availableTasks.findIndex(t => t.solution === gameState.currentProblem.solution);
+                if (taskIndex !== -1) {
+                    gameState.availableTasks.splice(taskIndex, 1);
+                }
             }
             
             if (gameState.currentProblem.tool && gameState.inventory[gameState.currentProblem.tool] > 0) {
-                 gameState.inventory[gameState.currentProblem.tool]--;
+                gameState.inventory[gameState.currentProblem.tool]--;
             }
 
             printToConsole(getTranslation('jobDone', { pay, money: gameState.money, level: gameState.level }));
             gameState.currentProblem = null;
-            returnToConsole(); // Návrat do normálního stavu
+            startMainJobTimer();
+            returnToConsole();
         }
 
-        // Simulace restartu počítače
-        function simulateRestart() {
-            let dots = 0;
-            inputField.disabled = true;
-            promptSpan.textContent = '...';
+        // Zpracování vstupu z konzole
+        function handleInput(input) {
+            const normalizedInput = input.trim().toUpperCase();
+            const currentProblem = gameState.currentProblem;
             
-            const restartInterval = setInterval(() => {
-                dots++;
-                if (dots > 3) {
-                    dots = 1;
-                }
-                promptSpan.textContent = getTranslation('restarting') + '.'.repeat(dots);
-            }, 500);
+            if (normalizedInput === getTranslation('tasksCommand').toUpperCase()) {
+                showTasksMenu();
+                return;
+            }
+            
+            if (normalizedInput === getTranslation('shopCommand').toUpperCase()) {
+                showShopMenu();
+                return;
+            }
+            
+            if (normalizedInput === getTranslation('saveCommand').toUpperCase()) {
+                saveGame();
+                return;
+            }
 
-            setTimeout(() => {
-                clearInterval(restartInterval);
-                inputField.disabled = false;
-                promptSpan.textContent = 'C:\\>';
-                printToConsole(getTranslation('restartDone'));
-            }, 3000);
+            if (normalizedInput === getTranslation('returnToMenuCommand').toUpperCase()) {
+                returnToMainMenu();
+                return;
+            }
+
+            if (currentProblem) {
+                if (currentProblem.solution === normalizedInput) {
+                    if (currentProblem.tool && gameState.inventory[currentProblem.tool] <= 0) {
+                        printToConsole(getTranslation('invalidTool'));
+                        return;
+                    }
+                    startLoading(currentProblem.loadingTime, currentProblem.successRate, finishJob);
+                } else {
+                    printToConsole(getTranslation('invalidCommand'));
+                }
+            } else {
+                printToConsole(getTranslation('invalidCommand'));
+            }
+        }
+        
+        // Zobrazení nabídky úkolů
+        function showTasksMenu() {
+            consoleContainer.style.display = 'none';
+            shopMenu.style.display = 'none';
+            tasksMenu.style.display = 'flex';
+            updateTasksMenu();
+        }
+        
+        // Aktualizace nabídky úkolů
+        function updateTasksMenu() {
+            tasksTitle.textContent = getTranslation('tasksCommand');
+            exitTasksButton.textContent = getTranslation('exitTasksButton');
+            mainTasksList.innerHTML = '';
+            sideTasksList.innerHTML = '';
+            
+            if (gameState.currentProblem) {
+                mainTasksList.innerHTML = `
+                    <div class="menu-item">
+                        <strong>${getTranslation('mainTaskHeader')}:</strong> ${getTranslation('taskInfo', { name: gameState.currentProblem.name, pay: gameState.currentProblem.pay })}
+                    </div>
+                `;
+            } else {
+                mainTasksList.innerHTML = `<p>${getTranslation('noTasks')}</p>`;
+            }
+
+            if (gameState.availableTasks.length > 0) {
+                const taskHeader = document.createElement('p');
+                taskHeader.textContent = getTranslation('tasksHeader');
+                sideTasksList.appendChild(taskHeader);
+                
+                gameState.availableTasks.forEach(task => {
+                    const taskItem = document.createElement('div');
+                    taskItem.classList.add('menu-item');
+                    taskItem.textContent = getTranslation('taskInfo', { name: task.name, pay: task.pay });
+                    taskItem.onclick = () => acceptSideTask(task);
+                    sideTasksList.appendChild(taskItem);
+                });
+            } else {
+                sideTasksList.innerHTML = `<p>${getTranslation('noTasks')}</p>`;
+            }
         }
 
-        // Funkce pro spuštění hudby
+        // Přijetí vedlejšího úkolu
+        function acceptSideTask(task) {
+            if (gameState.currentProblem) {
+                alert(getTranslation('mainTaskHeader') + ' ' + getTranslation('taskInfo', { name: gameState.currentProblem.name, pay: gameState.currentProblem.pay }));
+                return;
+            }
+            
+            gameState.currentProblem = task;
+            returnToConsole();
+        }
+
+        // Zobrazení obchodu
+        function showShopMenu() {
+            consoleContainer.style.display = 'none';
+            tasksMenu.style.display = 'none';
+            shopMenu.style.display = 'flex';
+            updateShopMenu();
+        }
+
+        // Aktualizace nabídky obchodu
+        function updateShopMenu() {
+            shopTitle.textContent = getTranslation('shopCommand');
+            shopDescription.textContent = getTranslation('shopWelcome', { money: gameState.money });
+            shopItemsList.innerHTML = '';
+
+            const buySection = document.createElement('div');
+            buySection.classList.add('menu-section');
+            buySection.innerHTML = `<h3>${getTranslation('buyCommand')}</h3><p>${getTranslation('shopInstructions')}</p>`;
+            const buyList = document.createElement('div');
+            buyList.style.display = 'flex';
+            buyList.style.flexWrap = 'wrap';
+            buySection.appendChild(buyList);
+            
+            for (const item in shopItems) {
+                const itemDiv = document.createElement('div');
+                itemDiv.classList.add('menu-item');
+                itemDiv.textContent = getTranslation('shopItem', { item: getTranslation('shopItems')[item], price: shopItems[item].price });
+                itemDiv.onclick = () => buyItem(item);
+                buyList.appendChild(itemDiv);
+            }
+            shopItemsList.appendChild(buySection);
+
+            const sellSection = document.createElement('div');
+            sellSection.classList.add('menu-section');
+            sellSection.innerHTML = `<h3>${getTranslation('sellCommand')}</h3><p>${getTranslation('shopInstructions')}</p>`;
+            const sellList = document.createElement('div');
+            sellList.style.display = 'flex';
+            sellList.style.flexWrap = 'wrap';
+            sellSection.appendChild(sellList);
+            
+            for (const item in gameState.inventory) {
+                if (gameState.inventory[item] > 0) {
+                    const itemDiv = document.createElement('div');
+                    itemDiv.classList.add('menu-item');
+                    itemDiv.textContent = `${getTranslation('shopItems')[item]} (x${gameState.inventory[item]})`;
+                    itemDiv.onclick = () => sellItem(item);
+                    sellList.appendChild(itemDiv);
+                }
+            }
+            shopItemsList.appendChild(sellSection);
+
+            exitShopButton.textContent = getTranslation('exitShopCommand');
+        }
+
+        // Nákup položky
+        function buyItem(item) {
+            const itemPrice = shopItems[item].price;
+            if (gameState.money >= itemPrice) {
+                gameState.money -= itemPrice;
+                gameState.inventory[item]++;
+                updateShopMenu();
+            } else {
+                alert(getTranslation('notEnoughMoney'));
+            }
+        }
+
+        // Prodej položky
+        function sellItem(item) {
+            if (gameState.inventory[item] > 0) {
+                const sellPrice = Math.floor(shopItems[item].price / 2);
+                gameState.money += sellPrice;
+                gameState.inventory[item]--;
+                updateShopMenu();
+            } else {
+                alert(getTranslation('noItemToSell'));
+            }
+        }
+
+        // Funkce pro načítací obrazovku
+        function startLoading(time, successRate, callback) {
+            consoleDiv.textContent = ''; // Vymaže text konzole
+
+            consoleContainer.style.display = 'none';
+            buttonPanel.style.display = 'none';
+            loadingOverlay.style.display = 'flex';
+            loadingText.textContent = getTranslation('loading');
+            progressBar.style.width = '0%';
+            
+            let progress = 0;
+            const interval = 100;
+            const step = (interval / time) * 100;
+            const loadingInterval = setInterval(() => {
+                progress += step;
+                if (progress >= 100) {
+                    progress = 100;
+                    clearInterval(loadingInterval);
+                    
+                    const success = Math.random() <= successRate;
+                    loadingText.textContent = success ? getTranslation('success') : getTranslation('failure');
+
+                    setTimeout(() => {
+                        loadingOverlay.style.display = 'none';
+                        if (success) {
+                            callback();
+                        } else {
+                            gameState.currentProblem = null;
+                            returnToConsole();
+                        }
+                    }, 500); 
+                }
+                progressBar.style.width = progress + '%';
+            }, interval);
+        }
+
+        // Přehrávání hudby
         function playMusic() {
-            backgroundMusic.volume = 0.1; // Nastavení hlasitosti na 10 %
             backgroundMusic.play().catch(error => {
-                // Zachycení chyby v případě, že přehrávání selže (např. kvůli zásadám prohlížeče)
-                console.log("Přehrávání hudby selhalo: ", error);
+                console.error("Přehrávání hudby selhalo:", error);
             });
         }
-
-        // Kontrola existence uložené hry
+        
+        // Zkontrolovat existenci uložené hry
         function checkSavedGame() {
             if (localStorage.getItem('opravarec_pc_save')) {
-                loadButton.style.display = 'inline-block';
+                loadButton.style.display = 'block';
             } else {
                 loadButton.style.display = 'none';
             }
         }
 
-        // Listenery pro interakci
+        // Event listenery
         inputField.addEventListener('keydown', (event) => {
             if (event.key === 'Enter') {
                 handleInput(inputField.value);
